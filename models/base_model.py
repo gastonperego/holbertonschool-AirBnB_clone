@@ -17,9 +17,8 @@ class BaseModel:
                     setattr(self, key, value)
                 else:
                     if key != "__class__":
-                    setattr(self, key, value)
+                        setattr(self, key, value)
 
- 
     def __str__(self):
         """this is the representation of string"""
         return f"[{type(self).__name__}] ({self.id}) {self.__dict__}"
