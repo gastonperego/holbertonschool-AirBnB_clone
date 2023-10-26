@@ -10,11 +10,15 @@ class BaseModel:
         self.id = str(uuid.uuid4())
         self.created_at = datetime.datetime.now()
         self.updated_at = datetime.datetime.now()
-        if len(kwargs) > 0:
+        if kwargs and len(kwargs) > 0:
             for key, value in kwargs.items():
                 if key in ("created_at", "update_at"):
                     value = datetime.datetime.fromisoformat(str(value))
                     setattr(self, key, value)
+                else:
+                    if key != "__class__":
+                    setattr(self, key, value)
+
  
     def __str__(self):
         """this is the representation of string"""
