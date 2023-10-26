@@ -17,7 +17,12 @@ class FileStorage:
 
     def save(self):
         """serialize __objects to the json file"""
-        self.updated_at = datetime.datetime.now()
+        for key in self.__objects.keys():
+            self.__objects[key] = str(self.__objects[key])
+
+        with open(self.__file_path, 'w', encoding="utf-8") as file:
+            json.dump(self.__objects, file)
+            
 
     def reload(self):
         """deserializes __objects to the JSON file"""
