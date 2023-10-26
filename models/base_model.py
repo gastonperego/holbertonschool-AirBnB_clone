@@ -2,14 +2,13 @@
 """Basemodel"""
 import datetime
 import uuid
-
+import models
 class BaseModel:
     """BaseModel"""
-
     def __init__(self, *args, **kwargs):
         self.id = str(uuid.uuid4())
-        self.created_at = datetime.datetime.now()
-        self.updated_at = datetime.datetime.now()
+        self.created_at = datetime.datetime.today()
+        self.updated_at = datetime.datetime.today()
         if kwargs and len(kwargs) > 0:
             for key, value in kwargs.items():
                 if key in ("created_at", "update_at"):
@@ -18,6 +17,8 @@ class BaseModel:
                 else:
                     if key != "__class__":
                         setattr(self, key, value)
+        else:
+            models.storage.new(self)
 
     def __str__(self):
         """this is the representation of string"""
@@ -31,6 +32,6 @@ class BaseModel:
         """this is the dictionary with the keys/values of the instance"""
         dic = self.__dict__.copy()
         dic['__class__'] = self.__class__.__name__
-        dic['created_at'] = str(self.created_at.isoformat())
-        dic['updated_at'] = str(self.updated_at.isoformat())
+        dic['created_at'] = str(self.created_at)
+        dic['updated_at'] = str(self.updated_at)
         return dic
