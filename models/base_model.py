@@ -17,17 +17,14 @@ class BaseModel:
                 else:
                     if key != "__class__":
                         setattr(self, key, value)
-        else:
-            models.storage.new(self)
 
     def __str__(self):
         """this is the representation of string"""
-        return f"[{type(self).__name__}] ({self.id}) {self.__dict__}"
+        return f"[{type(self).__class__.__name__}] ({self.id}) {self.__dict__}"
 
     def save(self):
         """update_at is responsible for updating to the current time."""
         self.updated_at = datetime.datetime.now()
-        models.storage.save()
 
     def to_dict(self):
         """this is the dictionary with the keys/values of the instance"""

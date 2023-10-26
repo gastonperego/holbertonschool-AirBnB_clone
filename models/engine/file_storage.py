@@ -1,8 +1,8 @@
 #!/bin/usr/python3
 """File Storage"""
 import json
-
-class FileStrorage:
+from models.base_model import BaseModel
+class FileStorage:
     """file storage class"""
     __file_path = "file.json"
     __objects = {}
@@ -13,17 +13,12 @@ class FileStrorage:
 
     def new(self, obj):
         """Stores the object in the __objects dictionary with a key based on the <obj class name>.id"""
-        self.__objects[f"{obj.__name__}.{obj.id}"] = obj
-
+        self.__objects[f"{obj.__class__.__name__}.{obj.id}"] = obj
 
     def save(self):
         """serialize __objects to the json file"""
-        data = {}
-        for key, value in self.__objects.items():
-            data[key] = value.to_dict()
-        with open(self.__file_path, 'w') as json_file:
-            json.dump(data, json_file)
-    
+        self.updated_at = datetime.datetime.now()
+
     def reload(self):
         """deserializes __objects to the JSON file"""
         try:
@@ -31,4 +26,3 @@ class FileStrorage:
                 self.__objects = json.load(file)
         except:
             pass
-            
