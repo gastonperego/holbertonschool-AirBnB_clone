@@ -21,8 +21,7 @@ class FileStorage:
             self.__objects[key] = str(self.__objects[key])
 
         with open(self.__file_path, 'w', encoding="utf-8") as file:
-            json.dump(self.__objects, file)
-            
+            json.dump(self.__objects, file)            
 
     def reload(self):
         """deserializes __objects to the JSON file"""
