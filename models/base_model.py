@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """Basemodel"""
-from datetime import datetime
+import datetime
 import uuid
 import models
 
@@ -30,7 +30,7 @@ class BaseModel:
 
     def save(self):
         """update_at is responsible for updating to the current time."""
-        self.updated_at = datetime.now()
+        self.updated_at = datetime.datetime.now()
         models.storage.save()
 
     def to_dict(self):
